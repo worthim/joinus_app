@@ -12,10 +12,11 @@ const connection = mysql.createConnection({
 });
 
 const promisifiedQuery = promisify(connection.query).bind(connection);
+const queryString = "SELECT count(*) as total FROM users";
 
 const runQuery = async () => {
     try {
-        let data = await promisifiedQuery('SELECT *FROM users');
+        let data = await promisifiedQuery('SELECT count(*) as total FROM users');
         return(data);
     }   catch (error) {
         console.log(error.sqlMessage);
@@ -32,7 +33,7 @@ const runQuery = async () => {
 // };
 
 
-const addEmail = async () => {
+const addEmail = async (email) => {
     try {
     
         const queryStringAdd = `INSERT INTO users(email) VALUES ("${email}")`;
@@ -43,6 +44,7 @@ const addEmail = async () => {
     }
 };
 
+runQuery()
 
 
 //addEmail();
